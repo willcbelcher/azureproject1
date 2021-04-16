@@ -55,6 +55,8 @@ def post(id):
             return redirect(url_for('home'))
         elif form.deleteimage.data:
             post.image_path = ""
+            db.session.add(post)
+            db.session.commit()
             return redirect( url_for('post', id=post.id))
     return render_template(
         'post.html',
