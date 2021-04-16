@@ -63,7 +63,7 @@ def post(id):
         form=form
     )
 
-@app.route('/post/<int:id>', methods=["GET", 'POST'])
+@app.route('/deletepost/<int:id>', methods=["GET", 'POST'])
 @login_required
 def deletepost(id):
     post = Post.query.get(int(id))
