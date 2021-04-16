@@ -50,14 +50,25 @@ def post(id):
     post = Post.query.get(int(id))
     form = PostForm(formdata=request.form, obj=post)
     if form.validate_on_submit():
-        post.save_changes(form, request.files['image_path'], current_user.id)
-        return redirect(url_for('home'))
+        if form.submit.data:
+            post.save_changes(form, request.files['image_path'], current_user.id)
+            return redirect(url_for('home'))
+        elif form.deleteimage.data:
+            post.image_path = ""
+            return redirect(url_for('/post/' + id))
     return render_template(
         'post.html',
         title='Edit Post',
         imageSource=imageSourceUrl,
         form=form
     )
+
+@app.route('/post/<int:id>', methods=["GET", 'POST'])
+@login_required
+def deletepost(id):
+    post = Post.query.get(int(id))
+    db.session.delete(post)
+    db.session.commit()
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

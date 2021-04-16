@@ -18,3 +18,4 @@ class PostForm(FlaskForm):
     body = TextAreaField('Body', validators=[DataRequired()])
     image_path = FileField('Image', validators=[FileAllowed(['jpg', 'png'], 'Images only!')])
     submit = SubmitField('Save')
+    deleteimage = SubmitField("Delete Image")
