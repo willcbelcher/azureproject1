@@ -70,6 +70,8 @@ def deletepost(id):
     db.session.delete(post)
     db.session.commit()
 
+    return redirect(url_for('home'))
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
